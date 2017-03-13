@@ -8,7 +8,7 @@ class Count extends React.Component {
 	console.log(this.props)	
 		return (
 			<div className="LCD">
-				<span>{this.props.count}</span>
+				<span>03</span>
 			</div>
 		)
 		

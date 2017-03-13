@@ -19,3 +19,34 @@
 	
 	box-shadow: 0 0 5px rgba(17, 17, 17, .8);
 }
+
+
+.buttons-container {
+	position: relative;
+	margin: 0 auto;
+	text-align: center;
+
+	top: 100px;
+
+	@media screen and (min-width: 700px) {
+		top: 200px;
+	}
+
+
+
+	// display: flex;
+
+	div {
+		@media screen and (min-width: 700px) {
+			width: 50px;				
+		}
+
+		width: 30px;
+		position: relative;
+		display: inline-block;
+		text-align: center;
+	}
+
+
+
+}

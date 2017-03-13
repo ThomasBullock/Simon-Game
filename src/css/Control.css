@@ -9,9 +9,30 @@
   border: solid 2px #444;
   background: #DDD;
   box-shadow: 0 0 5px rgba(17, 17, 17, 0.8); }
-  @media screen and (min-width: 700px) {
-    .control {
-      width: 280px;
-      height: 280px;
-      top: 140px;
-      left: 140px; } }
+
+@media screen and (min-width: 700px) {
+  .control {
+    width: 280px;
+    height: 280px;
+    top: 140px;
+    left: 140px; } }
+
+.buttons-container {
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  top: 100px; }
+
+@media screen and (min-width: 700px) {
+  .buttons-container {
+    top: 200px; } }
+
+.buttons-container div {
+  width: 30px;
+  position: relative;
+  display: inline-block;
+  text-align: center; }
+
+@media screen and (min-width: 700px) {
+  .buttons-container div {
+    width: 50px; } }
