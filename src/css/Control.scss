@@ -1,0 +1,21 @@
+.control {
+  @media screen and (min-width: 700px) {
+
+    width: 280px;
+    height: 280px;
+	top: 140px;
+	left: 140px;    
+  }	
+	
+	z-index: 200;
+	border-radius: 100%;
+	position: absolute;
+	top: 70px;
+	left: 70px;    
+	width: 140px;
+	height: 140px;
+	border: solid 2px #444;
+	background: #DDD;
+	
+	box-shadow: 0 0 5px rgba(17, 17, 17, .8);
+}

@@ -1,0 +1,109 @@
+
+
+///  Variables
+
+$green: #00a74a;
+$red: #c7002a;
+$yellow: yellow;
+$blue: #0100a9;
+
+
+.btn {
+  @media screen and (min-width: 700px) {
+    height: 280px;
+    width: 280px;
+  }	
+	
+  	box-sizing: border-box;		
+	width: 140px;
+    height: 140px;
+    flex: 0 0 50%;
+}
+
+.green {
+	border-top-left-radius: 100%;
+	background-color: $green;
+	border: solid 3px darken($green, 8%);
+}
+
+.red {
+	border-top-right-radius: 100%;
+	background-color: $red;
+	border: solid 3px darken($red, 7%);	
+}
+
+.yellow {
+	border-bottom-left-radius: 100%;
+	background-color: $yellow;
+	border: solid 3px darken($yellow, 5%);			
+}
+
+.blue {
+	border-bottom-right-radius: 100%;
+	background-color: $blue;
+	border: solid 3px darken($blue, 12%);				
+}
+
+
+.on-green {
+  z-index: 100;
+  border: solid 2px lighten($green, 10%);
+  animation: green-glow 1s ease-in-out infinite alternate;	
+}
+
+.on-blue {
+  z-index: 100;
+  border: solid 2px lighten($blue, 10%);  	
+  animation: blue-glow 1s ease-in-out infinite alternate;	
+}
+
+.on-red {
+  z-index: 100;
+  border: solid 2px lighten($red, 10%);  	
+  animation: red-glow 1s ease-in-out infinite alternate;	
+}
+
+.on-yellow {
+  z-index: 100;
+  border: solid 2px lighten($yellow, 10%);   	
+  animation: yellow-glow 1s ease-in-out infinite alternate;	
+}
+
+
+
+
+@keyframes red-glow {
+  from {
+    box-shadow: 0 0 10px lighten($red, 30%), 0 0 20px lighten($red, 30%), 0 0 30px lighten($red, 30%), 0 0 40px $red, 0 0 70px $red;
+  }
+  to {
+    box-shadow: 0 0 5px lighten($red, 30%), 0 0 10px lighten($red, 30%), 0 0 15px lighten($red, 30%), 0 0 20px $red, 0 0 35px $red;
+  }
+}
+
+@keyframes blue-glow {
+  from {
+    box-shadow: 0 0 10px lighten($blue, 30%), 0 0 20px lighten($blue, 30%), 0 0 30px lighten($blue, 30%), 0 0 40px $blue, 0 0 70px $blue;
+  }
+  to {
+    box-shadow: 0 0 5px lighten($blue, 30%), 0 0 10px lighten($blue, 30%), 0 0 15px lighten($blue, 30%), 0 0 20px $blue, 0 0 35px $blue;
+  }
+}
+
+@keyframes yellow-glow {
+  from {
+    box-shadow: 0 0 10px lighten($yellow, 30%), 0 0 20px lighten($yellow, 30%), 0 0 30px lighten($yellow, 30%), 0 0 40px $yellow, 0 0 70px $yellow;
+  }
+  to {
+    box-shadow: 0 0 5px lighten($yellow, 30%), 0 0 10px lighten($yellow, 30%), 0 0 15px lighten($yellow, 30%), 0 0 20px $yellow, 0 0 35px $yellow;
+  }
+}
+
+@keyframes green-glow {
+  from {
+    box-shadow: 0 0 10px lighten($green, 30%), 0 0 20px lighten($green, 30%), 0 0 30px lighten($green, 30%), 0 0 40px $green, 0 0 70px $green;
+  }
+  to {
+    box-shadow: 0 0 5px lighten($green, 30%), 0 0 10px lighten($green, 30%), 0 0 15px lighten($green, 30%), 0 0 20px $green, 0 0 35px $green;
+  }
+}

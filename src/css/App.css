@@ -1,0 +1,14 @@
+.App {
+  margin: 0;
+  max-width: 100%; }
+
+.game-container {
+  position: relative;
+  padding: 0;
+  width: 280px;
+  margin: 10vh auto;
+  display: flex;
+  flex-wrap: wrap; }
+  @media screen and (min-width: 700px) {
+    .game-container {
+      width: 560px; } }
