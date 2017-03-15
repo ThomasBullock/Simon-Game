@@ -15,9 +15,10 @@ $blue: #0100a9;
   }	
 	
   	box-sizing: border-box;		
-	width: 140px;
+	  width: 140px;
     height: 140px;
     flex: 0 0 50%;
+    transition: all .5s;
 }
 
 .green {
@@ -47,26 +48,30 @@ $blue: #0100a9;
 
 .on-green {
   z-index: 100;
-  border: solid 2px lighten($green, 10%);
-  animation: green-glow 1s ease-in-out infinite alternate;	
+  border: solid 2px lighten($green, 15%);
+  background: lighten($green, 10%);    
+  animation: green-glow 1s ease-in infinite alternate;	
 }
 
 .on-blue {
   z-index: 100;
-  border: solid 2px lighten($blue, 10%);  	
-  animation: blue-glow 1s ease-in-out infinite alternate;	
+  border: solid 2px lighten($blue, 17%);
+  background: lighten($blue, 13%);      	
+  animation: blue-glow 1s ease-in infinite alternate;	
 }
 
 .on-red {
   z-index: 100;
-  border: solid 2px lighten($red, 10%);  	
-  animation: red-glow 1s ease-in-out infinite alternate;	
+  border: solid 2px lighten($red, 15%);
+  background: lighten($red, 10%);      	
+  animation: red-glow 1s ease-in infinite alternate;	
 }
 
 .on-yellow {
   z-index: 100;
-  border: solid 2px lighten($yellow, 10%);   	
-  animation: yellow-glow 1s ease-in-out infinite alternate;	
+  border: solid 2px lighten($yellow, 18%);
+  background: lighten($yellow, 14%); 	
+  animation: yellow-glow 1s ease-in infinite alternate;	
 }
 
 
@@ -74,36 +79,36 @@ $blue: #0100a9;
 
 @keyframes red-glow {
   from {
-    box-shadow: 0 0 10px lighten($red, 30%), 0 0 20px lighten($red, 30%), 0 0 30px lighten($red, 30%), 0 0 40px $red, 0 0 70px $red;
+    box-shadow: 0 0 10px lighten($red, 30%), 0 0 20px lighten($red, 30%), 0 0 30px lighten($red, 30%);
   }
   to {
-    box-shadow: 0 0 5px lighten($red, 30%), 0 0 10px lighten($red, 30%), 0 0 15px lighten($red, 30%), 0 0 20px $red, 0 0 35px $red;
+    box-shadow: 0 0 5px lighten($red, 30%), 0 0 10px lighten($red, 30%), 0 0 15px lighten($red, 30%);
   }
 }
 
 @keyframes blue-glow {
   from {
-    box-shadow: 0 0 10px lighten($blue, 30%), 0 0 20px lighten($blue, 30%), 0 0 30px lighten($blue, 30%), 0 0 40px $blue, 0 0 70px $blue;
+    box-shadow: 0 0 10px lighten($blue, 30%), 0 0 20px lighten($blue, 30%), 0 0 30px lighten($blue, 30%);
   }
   to {
-    box-shadow: 0 0 5px lighten($blue, 30%), 0 0 10px lighten($blue, 30%), 0 0 15px lighten($blue, 30%), 0 0 20px $blue, 0 0 35px $blue;
+    box-shadow: 0 0 5px lighten($blue, 30%), 0 0 10px lighten($blue, 30%), 0 0 15px lighten($blue, 30%);
   }
 }
 
 @keyframes yellow-glow {
   from {
-    box-shadow: 0 0 10px lighten($yellow, 30%), 0 0 20px lighten($yellow, 30%), 0 0 30px lighten($yellow, 30%), 0 0 40px $yellow, 0 0 70px $yellow;
+    box-shadow: 0 0 10px lighten($yellow, 30%), 0 0 20px lighten($yellow, 30%), 0 0 30px lighten($yellow, 20%);
   }
   to {
-    box-shadow: 0 0 5px lighten($yellow, 30%), 0 0 10px lighten($yellow, 30%), 0 0 15px lighten($yellow, 30%), 0 0 20px $yellow, 0 0 35px $yellow;
+    box-shadow: 0 0 5px lighten($yellow, 30%), 0 0 10px lighten($yellow, 30%), 0 0 15px lighten($yellow, 20%);
   }
 }
 
 @keyframes green-glow {
   from {
-    box-shadow: 0 0 10px lighten($green, 30%), 0 0 20px lighten($green, 30%), 0 0 30px lighten($green, 30%), 0 0 40px $green, 0 0 70px $green;
+    box-shadow: 0 0 10px lighten($green, 30%), 0 0 20px lighten($green, 30%), 0 0 30px lighten($green, 20%);
   }
   to {
-    box-shadow: 0 0 5px lighten($green, 30%), 0 0 10px lighten($green, 30%), 0 0 15px lighten($green, 30%), 0 0 20px $green, 0 0 35px $green;
+    box-shadow: 0 0 5px lighten($green, 30%), 0 0 10px lighten($green, 30%), 0 0 15px lighten($green, 20%);
   }
 }

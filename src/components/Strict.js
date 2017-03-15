@@ -6,7 +6,7 @@ class Strict extends React.Component {
 	render() {
 		return (
 			<div>
-				<label>Strict</label>
+				<label>STRICT</label>
 				<input className="strict-btn" type="button"/>							
 			</div>
 		)

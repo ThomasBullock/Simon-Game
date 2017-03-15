@@ -1,16 +1,27 @@
+@font-face {
+  font-family: 'Dosis-SemiBold';
+  src: url('../fonts/Dosis-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 .start-btn {
 	// margin: 0 auto;
 	background: red;
 	border-radius: 100%;
 	width: 25px;
 	height: 25px;
+	
+
+	
 }
 
-label {
-
-  // width: 6em;
-
-}
+	label {
+		display: block;
+  		font-family: 'Dosis-SemiBold', sans-serif;
+  		font-size: 14px;	
+	}
 
 input {
 

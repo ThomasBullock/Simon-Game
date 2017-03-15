@@ -15,10 +15,10 @@
 .LCD {
 	
   @media screen and (min-width: 700px) {
-		width: 100px;
+		width: 90px;
 		height: 40px;
-		top: 90px;
-		left: 90px;  	
+		top: 190px;
+		left: 95px;  	
 	  padding: 11px 0 0; 
 		
 		span {
@@ -26,15 +26,16 @@
 		}
 
   }	
-
+	
+	border-radius: 5px;
 	padding: 5px 0 0;  	
 	position: absolute;
 	font-family: monotype;
 	background: #111;
 	width: 50px;
 	height: 25px;
-	top: 45px;
-	left: 45px;  	
+	top: 100px;
+	left: 60px;  	
 	text-align: center;
 	border: solid 2px #777;
 	

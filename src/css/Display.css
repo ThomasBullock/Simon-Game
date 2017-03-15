@@ -6,30 +6,28 @@
   font-style: normal; }
 
 .LCD {
+  border-radius: 5px;
   padding: 5px 0 0;
   position: absolute;
   font-family: monotype;
   background: #111;
   width: 50px;
   height: 25px;
-  top: 45px;
-  left: 45px;
+  top: 100px;
+  left: 60px;
   text-align: center;
   border: solid 2px #777; }
-
-@media screen and (min-width: 700px) {
-  .LCD {
-    width: 100px;
-    height: 40px;
-    top: 90px;
-    left: 90px;
-    padding: 11px 0 0; } }
-
-.LCD span {
-  font-family: 'SFDigitalReadout-Medium';
-  color: #FBB;
-  font-size: 2em; }
-
-@media screen and (min-width: 700px) {
+  @media screen and (min-width: 700px) {
+    .LCD {
+      width: 90px;
+      height: 40px;
+      top: 190px;
+      left: 95px;
+      padding: 11px 0 0; } }
   .LCD span {
-    font-size: 3em; } }
+    font-family: 'SFDigitalReadout-Medium';
+    color: #FBB;
+    font-size: 2em; }
+    @media screen and (min-width: 700px) {
+      .LCD span {
+        font-size: 3em; } }

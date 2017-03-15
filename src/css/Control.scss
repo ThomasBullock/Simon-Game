@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Chango-Regular';
+  src: url('../fonts/Chango-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
 .control {
   @media screen and (min-width: 700px) {
 
@@ -10,43 +19,52 @@
 	z-index: 200;
 	border-radius: 100%;
 	position: absolute;
-	top: 70px;
-	left: 70px;    
-	width: 140px;
-	height: 140px;
+	top: 50px;
+	left: 50px;    
+	width: 180px;
+	height: 180px;
 	border: solid 2px #444;
-	background: #DDD;
+	background: url('../img/label.png');
+	background-size: contain;
 	
 	box-shadow: 0 0 5px rgba(17, 17, 17, .8);
-}
 
+	h1 {
+		font-family: Chango-Regular;
+		color: #EEE;
+		text-align: center;
+		margin: 30px 0 0 0;
+		padding: 0;
+		font-size: 2em;
+	    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;  		
+	}
+
+}
 
 .buttons-container {
 	position: relative;
 	margin: 0 auto;
 	text-align: center;
+	display: flex;
+	justify-content: space-around;
 
-	top: 100px;
+	top: 40px;
 
 	@media screen and (min-width: 700px) {
-		top: 200px;
+		top: 60px;
 	}
 
 
-
-	// display: flex;
-
 	div {
 		@media screen and (min-width: 700px) {
-			width: 50px;				
+			width: 70px;				
 		}
 
-		width: 30px;
+		height: 50px;
+		width: 40px;
 		position: relative;
 		display: inline-block;
 		text-align: center;
 	}
-
-
 
 }

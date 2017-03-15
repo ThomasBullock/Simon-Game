@@ -1,8 +1,12 @@
 import React from 'react';
 import '../css/Control.css';
-import Count from './Count.js';
+import Display from './Display.js';
+import Switch from './Switch.js';
 import Start from './Start.js';
 import Strict from './Strict.js';
+import label from '../img/label.png'
+
+console.log(label);
 
 class Control extends React.Component {
 	
@@ -10,9 +14,13 @@ class Control extends React.Component {
 		
 		return (
 			<div className="control">
-				<Count count={this.props.count}/>
+
+				<h1>Simon</h1>	
+
+				<Display display={this.props.display}/>
 					<div className="buttons-container">
-						<Start />
+						<Switch onOff={this.props.onOff}/>
+						<Start startGame={this.props.startGame}/>
 						<Strict />
 					</div>	
 			</div>

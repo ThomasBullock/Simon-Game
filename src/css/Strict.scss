@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Dosis-SemiBold';
+  src: url('../fonts/Dosis-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .strict-btn {
 	background: yellow;
 	border-radius: 100%;
@@ -5,12 +12,11 @@
 	height: 25px;
 }
 
-label {
-
-  // width: 6em;
-  // position: relative;
-  // top: -3em;
-}
+  label {
+      display: block;
+      font-family: 'Dosis-SemiBold', sans-serif;
+      font-size: 14px;      
+  }
 
 input {
 
