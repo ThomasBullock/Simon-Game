@@ -6,34 +6,42 @@ class Display extends React.Component {
 	constructor() {
 		super()
 		
-		this.checkDisplay = this.checkDisplay.bind(this);	
+		this.checkDisplay = this.checkDisplay.bind(this);
+		this.getDisplayClass = this.getDisplayClass.bind(this);	
+	}
+	
+	getDisplayClass() {
+		if(this.props.win) {
+			return "LCD flash";			
+		} else {
+			return "LCD";
+		}
 	}
 	
 	checkDisplay() {
 		if(this.props.failed) {
 			return "!!";
+		} else if (this.props.count === null) {
+			return
 		} else {
 			return this.padDigit(this.props.count);
 		}
-	}
-	
-	
-	
+	}		
 	
 	padDigit(num) {
-		if(num !== null && num <10 && num !== "!!") {
-			return "0"+num;
-		} else {
-			return num
-		}
-		
+	
+			if (num < 10) {
+				return "0"+num;
+			} else {
+				return num
+			}			
 	}
 	
 	render() {
 		const display = this.checkDisplay();
 		
 		return (
-			<div className="LCD">
+			<div className={this.getDisplayClass()}>
 				<span>{display}</span>
 			</div>
 		)

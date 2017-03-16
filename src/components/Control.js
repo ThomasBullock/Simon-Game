@@ -15,7 +15,7 @@ class Control extends React.Component {
 
 				<h1>Simon</h1>	
 
-				<Display count={this.props.count} failed={this.props.failed}/>
+				<Display count={this.props.count} failed={this.props.failed} win={this.props.win}/>
 					<div className="buttons-container">
 						<Switch onOff={this.props.onOff}/>
 						<Start startGame={this.props.startGame}/>

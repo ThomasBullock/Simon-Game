@@ -20,34 +20,16 @@ class App extends Component {
   		count: null,
       gameStarted: null,
       playerTurn: false,
+      win: false,
       strict: false,
       failed: false,
   		siSequence: null,
   		playSequence: null 
-  	}
-    
+  	}    
   }
-  
-  componentWillUpdate(nextProps, nextState) {
 
-    
-    // console.log(nextState);
-    // console.log(this.state);
-    // if(nextState.gameStarted === true && this.state.gameStarted === false) {
-    //   setTimeout( () => { 
-    //     this.playSiSequence(); 
-    //   }, 2000);
-    // }
-
-    // if(this.state.playerTurn === true && (this.state.playSequence.length !== nextState.playSequence.length)) {
-    //   console.log('yes we will check')
-    //   this.checkSequence();  
-    // }
-  }
   
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.state.playSequence);
-    console.log(prevState.playSequence);
     if(this.state.playerTurn === true) {
       if (this.state.playSequence.length !== prevState.playSequence.length) {
         console.log('yes we will check');
@@ -55,14 +37,17 @@ class App extends Component {
       }          
     }  
     
-    // if(this.state.gameStarted === true && this.state.failed !== true && this.state.playerTurn !== false) {
-    //   this.checkSequence();       
-    // }
     if(this.state.gameStarted === true && this.state.playerTurn === false) {
       setTimeout( () => { 
         this.playSiSequence(); 
-      }, 2000);
+      }, 1500);
     }          
+    
+    if(this.state.win === true) {
+      setTimeout( () => { 
+        this.playSiSequence(["green", "red", "blue", "yellow"], 4, 250);  
+      }, 1500); 
+    }  
   }
   
   wrong(){
@@ -109,28 +94,19 @@ class App extends Component {
     for(var i = 0; i < 20; i++) {
       randomArray.push(random(4));
     }
-    
-    // console.log(randomArray.length);
-    
+       
     this.setState({
+      count: 1,
       gameStarted: true,
-      failed: false,        
+      failed: false,
+      win: false,
+      playerTurn: false,        
       siSequence: randomArray,
       playSequence: []
     })    
   }
   
-  
-  
-  // gameTurn() {
-    
-  // }
-  
-  // addCount() {
-  //   this.setState({
-  //     count: this.state.count + 1
-  //   })
-  // }
+
   
   activateColorButton(color, target) {
     target.classList.add(`on-${color}`);
@@ -141,17 +117,15 @@ class App extends Component {
     }, 1000);    
   }
   
-  deactivateColorButton(color, target) {  //to be trigger 500ms after mouseup
+  deactivateColorButton(color, target) {  //to be trigger 1000ms after mouseup
     target.classList.remove(`on-${color}`);  
   }
 
-  playSiSequence() {
-    console.log(this.state.count);
+  playSiSequence(arr, length, ms) {
 
-    var seq = this.state.siSequence.slice();
-  
-
-    var count = this.state.count;
+    var seq = arr || this.state.siSequence.slice();    
+    var count = length || this.state.count - 1;   
+    var delay = ms || 1500;
     
     (function(count, seq, self){
         var loop = 0;
@@ -162,26 +136,23 @@ class App extends Component {
             self.activateColorButton(seq[loop], document.querySelector(`.${seq[loop]}`) );
             if (loop < count) {
                 loop++;
-            } else {
+            } else if (!self.state.win) {
                 self.setState({
-                  count: self.state.count + 1,
                   playerTurn: true
                 })
-                console.log('Loop end.');
-                
+                console.log('Loop end.');               
                 return;
             }
-
-            setTimeout(looper, 1500);
+            setTimeout(looper, delay);
         };
 
         looper();
-    })(count, seq, this);
+    })(count, seq, this, delay);
           
   }
   
   playerGuess(color, target) {
-    // if(this.state.playerTurn) {
+    if(this.state.playerTurn) {
       console.log('click')
       this.activateColorButton(color, target)
       
@@ -191,47 +162,52 @@ class App extends Component {
       
       this.setState({
         playSequence: playerSequence
-      })      
-    // } else {
-    //   return;
-    // }
-
+      }) 
+    }     
   }
   
   checkSequence() {
     const player = this.state.playSequence.slice();
     const computer = this.state.siSequence.slice(0, player.length);
-   console.log(player.length) 
-   console.log(computer.length)    
+    console.log(player.length) 
+    console.log(computer.length)    
     // console.log(arraysEqual(player, computer));
     if(arraysEqual(player, computer)){
       console.log('correct!')
       console.log('count: ' + this.state.count + "  play: " + this.state.playSequence.length )
       if(this.state.count === this.state.playSequence.length) {
         console.log('we set state')
-        this.setState({
-          playerTurn: false,
-          playSequence: []
-        })
+        if(this.state.count === 20) {
+          this.setState({
+            gameStarted: false,
+            win: true,
+            playerTurn: false
+          })
+        }
+        setTimeout( () => { 
+          this.setState({                  
+            count: this.state.count + 1,
+            playerTurn: false,
+            playSequence: []
+          })          
+        }, 1500);
       }
-
-      // this.playSiSequence();
     } else {
       console.log('oh no wrong!');
       console.log(player);
       console.log(computer);      
-                   
-      this.wrong();
+      if (this.state.strict) {
+        this.wrong();
+      }  else {
+        this.setState({
+          playerTurn: false,
+          playSequence: []
+        })        
+      }         
+
     }
-
-    
-    // console.log(player);
-    // console.log(computer); 
   }
-
-
-  
-  
+   
   render() {
   
     return (
@@ -248,6 +224,7 @@ class App extends Component {
             toggleStrict={this.toggleStrict} 
             count={this.state.count}
             failed={this.state.failed}
+            win={this.state.win}
           />
 	    </div>    
         

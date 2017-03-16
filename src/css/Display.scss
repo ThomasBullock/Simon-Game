@@ -19,7 +19,7 @@
 		height: 40px;
 		top: 190px;
 		left: 95px;  	
-	  padding: 11px 0 0; 
+	  	padding: 11px 0 0; 
 		
 		span {
 
@@ -43,10 +43,25 @@
 		@media screen and (min-width: 700px) {
 			font-size: 3em;			
 		}
-
 		font-family: 'SFDigitalReadout-Medium';
-		color: #FBB;
+		color: #D66;
 		font-size: 2em;
 	}
 	
+}
+
+.flash {
+	span {
+		animation: flash .5s ease-in-out infinite alternate;
+	}
+}
+
+@keyframes flash {
+  from, 50%, to {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0.3;
+  }
 }
