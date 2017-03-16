@@ -12,14 +12,15 @@ class App extends Component {
     this.initializeGame = this.initializeGame.bind(this);
     this.playerGuess = this.playerGuess.bind(this);
     this.wrong = this.wrong.bind(this);
+    this.toggleStrict = this.toggleStrict.bind(this);
     this.checkSequence = this.checkSequence.bind(this);
     this.playSiSequence = this.playSiSequence.bind(this);    
     
   	this.state = {
-  		count: 0,
-      display: null,
+  		count: null,
       gameStarted: null,
       playerTurn: false,
+      strict: false,
       failed: false,
   		siSequence: null,
   		playSequence: null 
@@ -27,11 +28,41 @@ class App extends Component {
     
   }
   
+  componentWillUpdate(nextProps, nextState) {
+
+    
+    // console.log(nextState);
+    // console.log(this.state);
+    // if(nextState.gameStarted === true && this.state.gameStarted === false) {
+    //   setTimeout( () => { 
+    //     this.playSiSequence(); 
+    //   }, 2000);
+    // }
+
+    // if(this.state.playerTurn === true && (this.state.playSequence.length !== nextState.playSequence.length)) {
+    //   console.log('yes we will check')
+    //   this.checkSequence();  
+    // }
+  }
   
-  componentDidUpdate() {
-    if(this.state.gameStarted === true && this.state.failed !== true && this.state.playerTurn !== false) {
-      this.checkSequence();       
+  componentDidUpdate(prevProps, prevState) {
+    console.log(this.state.playSequence);
+    console.log(prevState.playSequence);
+    if(this.state.playerTurn === true) {
+      if (this.state.playSequence.length !== prevState.playSequence.length) {
+        console.log('yes we will check');
+        this.checkSequence();  
+      }          
     }  
+    
+    // if(this.state.gameStarted === true && this.state.failed !== true && this.state.playerTurn !== false) {
+    //   this.checkSequence();       
+    // }
+    if(this.state.gameStarted === true && this.state.playerTurn === false) {
+      setTimeout( () => { 
+        this.playSiSequence(); 
+      }, 2000);
+    }          
   }
   
   wrong(){
@@ -46,21 +77,29 @@ class App extends Component {
   }
   
   onOff(e) {
-    console.dir(e.target.checked);
     if(e.target.checked) {
       this.setState({
-        display: this.state.count,
+        count: 0,
         gameStarted: false
       })
     } else {
       this.setState({
-        count: 0,
-        display: null,
+        count: null,
         gameStarted: null,
         failed: false,        
         siSequence: null,
         playSequence: null         
       })      
+    }
+  }
+  
+  toggleStrict() {
+    if(this.state.count === null) {
+      return; 
+    } else {
+      this.setState({
+        strict: !this.state.strict
+      })
     }
   }	
 	
@@ -71,18 +110,14 @@ class App extends Component {
       randomArray.push(random(4));
     }
     
-    console.log(randomArray.length);
+    // console.log(randomArray.length);
     
     this.setState({
       gameStarted: true,
       failed: false,        
       siSequence: randomArray,
       playSequence: []
-    })
-    setTimeout( () => { 
-      this.playSiSequence(); 
-    }, 2000);
-    
+    })    
   }
   
   
@@ -98,7 +133,6 @@ class App extends Component {
   // }
   
   activateColorButton(color, target) {
-    console.log(target)
     target.classList.add(`on-${color}`);
     var audio = new Audio(`audio/${color}.wav`);
     audio.play();
@@ -113,22 +147,10 @@ class App extends Component {
 
   playSiSequence() {
     console.log(this.state.count);
-    // for(let i = 0; i < this.state.count; i++) {
-    //   console.log(this.state.siSequence);
-    //   setTimeout(this.activateColorButton(this.state.siSequence[i], document.querySelector(`.${this.state.siSequence[i]}`)), 1500);
-    // }
+
     var seq = this.state.siSequence.slice();
   
-    // var i = 0, l = this.state.count;
-    // (function iterator() {
-    //     console.log(seq[i]);
-    //     console.log(this);
-    //     // this.activateColorButton(seq[i], document.querySelector(`.${this.state.siSequence[i]}`));
 
-    //     if(++i<l) {
-    //         setTimeout(iterator, 1500);
-    //     }
-    // }).bind(this)(seq);
     var count = this.state.count;
     
     (function(count, seq, self){
@@ -179,15 +201,26 @@ class App extends Component {
   checkSequence() {
     const player = this.state.playSequence.slice();
     const computer = this.state.siSequence.slice(0, player.length);
-    
+   console.log(player.length) 
+   console.log(computer.length)    
     // console.log(arraysEqual(player, computer));
     if(arraysEqual(player, computer)){
       console.log('correct!')
-      this.setState({
-        playerTurn: false
-      })
+      console.log('count: ' + this.state.count + "  play: " + this.state.playSequence.length )
+      if(this.state.count === this.state.playSequence.length) {
+        console.log('we set state')
+        this.setState({
+          playerTurn: false,
+          playSequence: []
+        })
+      }
+
       // this.playSiSequence();
     } else {
+      console.log('oh no wrong!');
+      console.log(player);
+      console.log(computer);      
+                   
       this.wrong();
     }
 
@@ -208,7 +241,14 @@ class App extends Component {
 	        <Button color="red" playerGuess={this.playerGuess} gameStarted={this.state.gameStarted}/>        
 	        <Button color="yellow" playerGuess={this.playerGuess} gameStarted={this.state.gameStarted}/>
 	        <Button color="blue" playerGuess={this.playerGuess} gameStarted={this.state.gameStarted}/>
-	        <Control onOff={this.onOff} startGame={this.initializeGame} display={this.state.count}/>
+	        <Control 
+            onOff={this.onOff} 
+            startGame={this.initializeGame}
+            strict={this.state.strict}
+            toggleStrict={this.toggleStrict} 
+            count={this.state.count}
+            failed={this.state.failed}
+          />
 	    </div>    
         
       </div>

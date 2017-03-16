@@ -3,9 +3,20 @@ import '../css/Display.css';
 
 
 class Display extends React.Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super()
+		
+		this.checkDisplay = this.checkDisplay.bind(this);	
 	}
+	
+	checkDisplay() {
+		if(this.props.failed) {
+			return "!!";
+		} else {
+			return this.padDigit(this.props.count);
+		}
+	}
+	
 	
 	
 	
@@ -19,10 +30,11 @@ class Display extends React.Component {
 	}
 	
 	render() {
-	console.log(this.props)	
+		const display = this.checkDisplay();
+		
 		return (
 			<div className="LCD">
-				<span>{this.padDigit(this.props.display)}</span>
+				<span>{display}</span>
 			</div>
 		)
 		

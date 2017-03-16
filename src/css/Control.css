@@ -45,7 +45,7 @@
   .buttons-container {
     top: 60px; } }
 
-.buttons-container div {
+.buttons-container div.btn-space {
   height: 50px;
   width: 40px;
   position: relative;
@@ -53,5 +53,5 @@
   text-align: center; }
 
 @media screen and (min-width: 700px) {
-  .buttons-container div {
+  .buttons-container div.btn-space {
     width: 70px; } }

@@ -4,11 +4,10 @@
   height: 140px;
   flex: 0 0 50%;
   transition: all .5s; }
-
-@media screen and (min-width: 700px) {
-  .btn {
-    height: 280px;
-    width: 280px; } }
+  @media screen and (min-width: 700px) {
+    .btn {
+      height: 280px;
+      width: 280px; } }
 
 .green {
   border-top-left-radius: 100%;

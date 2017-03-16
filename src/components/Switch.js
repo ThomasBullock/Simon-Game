@@ -5,7 +5,7 @@ class Switch extends React.Component {
 	
 	render() {
 		return (
-			<div>
+			<div className="btn-space">
 				<label className="label-switch">POWER
 				  <input type="checkbox" onClick={(e) => this.props.onOff(e)}/>
 				  <div className="checkbox"></div>

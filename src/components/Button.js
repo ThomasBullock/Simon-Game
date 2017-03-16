@@ -14,7 +14,6 @@ class Button extends React.Component {
 	
 	
 	render() {
-	console.log(this.props)	
 		return (
 			<div className={`btn ${this.props.color}`} onClick={(e) => this.clickHandler(e)}></div>
 		)
