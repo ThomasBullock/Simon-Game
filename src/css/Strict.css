@@ -14,3 +14,23 @@ label {
   display: block;
   font-family: 'Dosis-SemiBold', sans-serif;
   font-size: 14px; }
+
+.strict-LED {
+  position: absolute;
+  right: 10px;
+  top: 25px;
+  border: solid 1px #333;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  background: #555; }
+
+.strict-LED-on {
+  position: absolute;
+  right: 10px;
+  top: 25px;
+  border: solid 1px #333;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  background: #C33; }
