@@ -107,7 +107,7 @@ class App extends Component {
   
   activateColorButton(color, target) {
     target.classList.add(`on-${color}`);
-    var audio = new Audio(`audio/${color}.wav`);
+    var audio = new Audio(`audio/${color}.mp3`);
     audio.play();
     setTimeout( () => { 
         this.deactivateColorButton(color, target); 
@@ -166,7 +166,7 @@ class App extends Component {
       // console.log('correct!')
       if(this.state.count === this.state.playSequence.length) {
         // console.log('we set state')
-        if(this.state.count === 3) {
+        if(this.state.count === 20) {
           this.setState({
             gameStarted: false,
             win: true,
