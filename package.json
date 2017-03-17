@@ -2,6 +2,7 @@
   "name": "Simon-Game",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://thomasbullock.github.io/Simon-Game",
   "devDependencies": {
     "node-sass": "^4.5.0",
     "react-scripts": "0.9.5"

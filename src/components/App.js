@@ -27,12 +27,11 @@ class App extends Component {
   		playSequence: null 
   	}    
   }
-
   
   componentDidUpdate(prevProps, prevState) {
     if(this.state.playerTurn === true) {
       if (this.state.playSequence.length !== prevState.playSequence.length) {
-        console.log('yes we will check');
+        // console.log('yes we will check');
         this.checkSequence();  
       }          
     }  
@@ -40,7 +39,7 @@ class App extends Component {
     if(this.state.gameStarted === true && this.state.playerTurn === false) {
       setTimeout( () => { 
         this.playSiSequence(); 
-      }, 1500);
+      }, 2000);
     }          
     
     if(this.state.win === true) {
@@ -106,60 +105,54 @@ class App extends Component {
     })    
   }
   
-
-  
   activateColorButton(color, target) {
     target.classList.add(`on-${color}`);
     var audio = new Audio(`audio/${color}.wav`);
     audio.play();
     setTimeout( () => { 
         this.deactivateColorButton(color, target); 
-    }, 1000);    
+    }, 900);    
   }
   
-  deactivateColorButton(color, target) {  //to be trigger 1000ms after mouseup
+  deactivateColorButton(color, target) {  //to be trigger 900ms after mouseup
     target.classList.remove(`on-${color}`);  
   }
 
   playSiSequence(arr, length, ms) {
 
     var seq = arr || this.state.siSequence.slice();    
-    var count = length || this.state.count - 1;   
+    var count = length - 1 || this.state.count - 1;   
     var delay = ms || 1500;
     
-    (function(count, seq, self){
+    (function(count, seq, self, delay){ // this will loop through array (seq) activating button presses
         var loop = 0;
-
+        console.log(count)
         var looper = function(){
-            console.log('Loop count: ' + loop);
-            console.log(seq[loop]);
+            // console.log("I will activate " + seq[loop] + " on loop "  + loop);
             self.activateColorButton(seq[loop], document.querySelector(`.${seq[loop]}`) );
             if (loop < count) {
                 loop++;
-            } else if (!self.state.win) {
-                self.setState({
-                  playerTurn: true
-                })
-                console.log('Loop end.');               
+            } else { 
+                if (!self.state.win) {
+                  self.setState({
+                    playerTurn: true
+                  })
+                }
+                // console.log('Loop end.');               
                 return;
             }
             setTimeout(looper, delay);
         };
-
         looper();
     })(count, seq, this, delay);
           
   }
   
   playerGuess(color, target) {
-    if(this.state.playerTurn) {
-      console.log('click')
-      this.activateColorButton(color, target)
-      
+    if(this.state.playerTurn && !this.state.failed) {
+      this.activateColorButton(color, target)     
       var playerSequence = this.state.playSequence.slice();
-
-      playerSequence.push(color);
-      
+      playerSequence.push(color);     
       this.setState({
         playSequence: playerSequence
       }) 
@@ -169,15 +162,11 @@ class App extends Component {
   checkSequence() {
     const player = this.state.playSequence.slice();
     const computer = this.state.siSequence.slice(0, player.length);
-    console.log(player.length) 
-    console.log(computer.length)    
-    // console.log(arraysEqual(player, computer));
     if(arraysEqual(player, computer)){
-      console.log('correct!')
-      console.log('count: ' + this.state.count + "  play: " + this.state.playSequence.length )
+      // console.log('correct!')
       if(this.state.count === this.state.playSequence.length) {
-        console.log('we set state')
-        if(this.state.count === 20) {
+        // console.log('we set state')
+        if(this.state.count === 3) {
           this.setState({
             gameStarted: false,
             win: true,

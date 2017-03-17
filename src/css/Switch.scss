@@ -1,18 +1,9 @@
 @import 'Mixins/position';
 @import 'Mixins/size';
 
-@font-face {
-  font-family: 'Dosis-SemiBold';
-  src: url('../fonts/Dosis-SemiBold.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.label-switch {
-  font-family: 'Dosis-SemiBold';
-  font-size: 14px;
-  $action-color: #477DCA !default;
-  $base-background-color: white !default;
+@mixin switch-desktop {
+  $action-color: #511111 !default;
+  $base-background-color: #DDD !default;
   $switch-width: 48px;
   $switch-padding: 1px;
   $switch-height: 23px;
@@ -21,7 +12,7 @@
   $knob-radius: $switch-height - ($switch-padding * 2);
   $knob-width: $knob-size;
   $switch-background: $base-background-color;
-  $switch-border-background: darken($base-background-color, 9%);
+  $switch-border-background: darken($base-background-color, 19%);
   $switch-shadow: 0 2px 5px transparentize(black, 0.6);
 
   border-radius: $switch-radius;
@@ -94,4 +85,111 @@
       }
     }
   }
+} 
+
+@font-face {
+  font-family: 'Dosis-SemiBold';
+  src: url('../fonts/Dosis-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
+
+.label-switch {
+
+
+  
+  font-family: 'Dosis-SemiBold';
+  font-size: 10px;
+  
+  $action-color: #511111 !default;
+  $base-background-color: #DDD !default;
+  $switch-width: 30px;
+  $switch-padding: 1px;
+  $switch-height: 15px;
+  $switch-radius: $switch-height;
+  $knob-size: $switch-height - ($switch-padding * 2);
+  $knob-radius: $switch-height - ($switch-padding * 2);
+  $knob-width: $knob-size;
+  $switch-background: $base-background-color;
+  $switch-border-background: darken($base-background-color, 19%);
+  $switch-shadow: 0 2px 5px transparentize(black, 0.6);
+
+  border-radius: $switch-radius;
+  cursor: pointer;
+  display: inline-block;
+  height: $switch-height;
+  position: relative;
+  width: $switch-width;
+
+  input[type="checkbox"] {
+    display: none;
+
+    + .checkbox {
+      background: $switch-border-background;
+      border: 0;
+      border-radius: $switch-radius;
+      cursor: pointer;
+      height: $switch-height;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      transition: all 0.3s ease;
+      width: $switch-width;
+      z-index: 1000;
+
+      &::before {
+        // @include position(absolute, 2px 0 0 2px);
+        position: absolute;
+        top: 2px;
+        right: 0;
+        bottom: 0;
+        left: 2px;
+        background: $switch-background;
+        border-radius: $switch-radius;
+        content: "";
+        height: $knob-radius;
+        transform: scale(1);
+        transition: all 0.3s ease;
+        width: $switch-width - ($switch-padding * 2);
+        z-index: 1001;
+      }
+
+      &::after {
+        position: absolute;
+        top: 2px;
+        right: 0;
+        bottom: 0;
+        left: 2px;
+        @include size($knob-size);
+        background: $switch-background;
+        border-radius: $knob-radius;
+        box-shadow: $switch-shadow;
+        content: "";
+        transition: all 0.3s ease;
+        z-index: 1002;
+      }
+    }
+
+    &:checked {
+      + .checkbox {
+        background: $action-color;
+
+        &::before {
+          transform: scale(0);
+        }
+
+        &::after {
+          left: $switch-width - $knob-width - ($switch-padding);
+        }
+      }
+    }
+  }
+  
+  @media screen and (min-width: 700px) {  
+    @include switch-desktop;
+    font-size: 14px;
+  }
+  
+}
+
+

@@ -7,30 +7,49 @@
 .strict-btn {
   background: yellow;
   border-radius: 100%;
-  width: 25px;
-  height: 25px; }
+  width: 17px;
+  height: 17px; }
+
+@media screen and (min-width: 700px) {
+  .strict-btn {
+    width: 25px;
+    height: 25px; } }
 
 label {
   display: block;
   font-family: 'Dosis-SemiBold', sans-serif;
-  font-size: 14px; }
+  font-size: 10px; }
+
+@media screen and (min-width: 700px) {
+  label {
+    font-size: 14px; } }
 
 .strict-LED {
   position: absolute;
-  right: 10px;
-  top: 25px;
+  right: 2px;
+  top: 19px;
   border: solid 1px #333;
   border-radius: 50%;
   width: 5px;
   height: 5px;
   background: #555; }
 
+@media screen and (min-width: 700px) {
+  .strict-LED {
+    right: 10px;
+    top: 25px; } }
+
 .strict-LED-on {
   position: absolute;
-  right: 10px;
-  top: 25px;
+  right: 2px;
+  top: 19px;
   border: solid 1px #333;
   border-radius: 50%;
   width: 5px;
   height: 5px;
   background: #C33; }
+
+@media screen and (min-width: 700px) {
+  .strict-LED-on {
+    right: 10px;
+    top: 25px; } }
