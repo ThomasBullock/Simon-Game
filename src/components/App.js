@@ -5,6 +5,16 @@ import {arraysEqual} from '../helpers';
 import Button from './Button';
 import Control from './Control';
 
+const sounds = {
+  blue: new Audio('audio/blue.mp3'),
+  green: new Audio('audio/green.mp3'),
+  red: new Audio('audio/red.mp3'),
+  yellow: new Audio('audio/yellow.mp3'),
+};
+
+
+
+
 class App extends Component {
   constructor(props) {
   	super();
@@ -61,6 +71,12 @@ class App extends Component {
   }
   
   onOff(e) {
+    for(const sample in sounds) {
+        console.log(sample)
+        sounds[sample].volume = 0;
+        sounds[sample].play();
+    }
+    
     if(e.target.checked) {
       this.setState({
         count: 0,
@@ -107,8 +123,8 @@ class App extends Component {
   
   activateColorButton(color, target) {
     target.classList.add(`on-${color}`);
-    var audio = new Audio(`audio/${color}.mp3`);
-    audio.play();
+    sounds[color].volume = 1;
+    sounds[color].play();
     setTimeout( () => { 
         this.deactivateColorButton(color, target); 
     }, 900);    
