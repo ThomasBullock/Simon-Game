@@ -123,6 +123,7 @@ class App extends Component {
   
   activateColorButton(color, target) {
     target.classList.add(`on-${color}`);
+    sounds[color].currentTime = 0;
     sounds[color].volume = 1;
     sounds[color].play();
     setTimeout( () => { 
