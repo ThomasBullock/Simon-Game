@@ -6,10 +6,10 @@ import Button from './Button';
 import Control from './Control';
 
 const sounds = {
-  blue: new Audio('audio/blue.mp3'),
-  green: new Audio('audio/green.mp3'),
-  red: new Audio('audio/red.mp3'),
-  yellow: new Audio('audio/yellow.mp3'),
+  blue: new Audio('/audio/blue.mp3'),
+  green: new Audio('/audio/green.mp3'),
+  red: new Audio('/audio/red.mp3'),
+  yellow: new Audio('/audio/yellow.mp3'),
 };
 
 
