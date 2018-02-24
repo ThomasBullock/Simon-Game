@@ -1,9 +1,32 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'; 
 import '../css/App.css';
 import {random} from '../helpers';
 import {arraysEqual} from '../helpers';
 import Button from './Button';
 import Control from './Control';
+
+import { incrementStep, resetStep } from '../ducks/step';
+import { createSequence } from '../ducks/sequence';
+import { powerOn, powerOff, startGame, endGame, startPlayerTurn, endPlayerTurn, toggleStrict, winGame, failGame } from '../ducks/status';
+
+const actionCreators = {
+  incrementStep,
+  resetStep,
+  createSequence,
+  powerOn,
+  powerOff,
+  startGame,
+  endGame,
+  startPlayerTurn,
+  endPlayerTurn,
+  toggleStrict,
+  winGame,
+  failGame
+}
+
+console.log(actionCreators)
 
 const sounds = {
   blue: new Audio('/audio/blue.mp3'),
@@ -11,8 +34,6 @@ const sounds = {
   red: new Audio('/audio/red.mp3'),
   yellow: new Audio('/audio/yellow.mp3'),
 };
-
-
 
 
 class App extends Component {
@@ -39,14 +60,14 @@ class App extends Component {
   }
   
   componentDidUpdate(prevProps, prevState) {
-    if(this.state.playerTurn === true) {
+    if(this.props.playerTurn === true) {
       if (this.state.playSequence.length !== prevState.playSequence.length) {
         // console.log('yes we will check');
         this.checkSequence();  
       }          
     }  
     
-    if(this.state.gameStarted === true && this.state.playerTurn === false) {
+    if(this.props.gameStarted === true && this.props.playerTurn === false) {
       setTimeout( () => { 
         this.playSiSequence(); 
       }, 2000);
@@ -72,17 +93,21 @@ class App extends Component {
   
   onOff(e) {
     for(const sample in sounds) {
-        console.log(sample)
+        // console.log(sample)
         sounds[sample].volume = 0;
         sounds[sample].play();
     }
     
     if(e.target.checked) {
+      this.props.powerOn();
+      this.props.resetStep();
       this.setState({
         count: 0,
         gameStarted: false
       })
     } else {
+      this.props.powerOff();
+      this.props.endGame();      
       this.setState({
         count: null,
         gameStarted: null,
@@ -94,9 +119,10 @@ class App extends Component {
   }
   
   toggleStrict() {
-    if(this.state.count === null) {
+    if(!this.props.power) {
       return; 
     } else {
+      this.props.toggleStrict();
       this.setState({
         strict: !this.state.strict
       })
@@ -106,10 +132,13 @@ class App extends Component {
   initializeGame() {    
     const randomArray = [];
     
-    for(var i = 0; i < 20; i++) {
+    for(var i = 0; i < 5; i++) {
       randomArray.push(random(4));
     }
-       
+    
+    // console.log('initializeGame') 
+    this.props.createSequence(randomArray);
+    this.props.startGame();
     this.setState({
       count: 1,
       gameStarted: true,
@@ -136,9 +165,10 @@ class App extends Component {
   }
 
   playSiSequence(arr, length, ms) {
-
-    var seq = arr || this.state.siSequence.slice();    
-    var count = length - 1 || this.state.count - 1;   
+    console.log(this.props.step)
+    // console.log(this.props.sequence)    
+    var seq = arr || this.props.sequence.slice();    
+    var count = length - 1 || this.props.step;   
     var delay = ms || 1500;
     
     (function(count, seq, self, delay){ // this will loop through array (seq) activating button presses
@@ -151,9 +181,14 @@ class App extends Component {
                 loop++;
             } else { 
                 if (!self.state.win) {
+                  
+                  self.props.startPlayerTurn();
+                  
                   self.setState({
                     playerTurn: true
                   })
+                  
+                  
                 }
                 // console.log('Loop end.');               
                 return;
@@ -166,7 +201,7 @@ class App extends Component {
   }
   
   playerGuess(color, target) {
-    if(this.state.playerTurn && !this.state.failed) {
+    if(this.props.playerTurn && !this.state.failed) {
       this.activateColorButton(color, target)     
       var playerSequence = this.state.playSequence.slice();
       playerSequence.push(color);     
@@ -190,32 +225,62 @@ class App extends Component {
             playerTurn: false
           })
         }
-        setTimeout( () => { 
+        setTimeout( () => {
+          this.props.incrementStep();
+          
+          this.props.endPlayerTurn();
+          
+           
           this.setState({                  
             count: this.state.count + 1,
             playerTurn: false,
             playSequence: []
-          })          
+          })
+          
+                    
         }, 1500);
       }
     } else {
       console.log('oh no wrong!');
       console.log(player);
       console.log(computer);      
-      if (this.state.strict) {
-        this.wrong();
+      if (this.props.strict) {
+        this.props.failGame();
+        // this.wrong();
       }  else {
+        
+        this.props.endPlayerTurn();
+        
+                  
         this.setState({
           playerTurn: false,
           playSequence: []
-        })        
+        })
+        
+                
       }         
 
     }
   }
    
   render() {
-  
+    // const count = (this.props.step > -1) ? this.props.step : null
+    let count;
+    // if status power = false count = null
+    // else count = step
+    // if gameStarted = true  count = step +1
+    
+    if(this.props.gameStarted) {
+      count = this.props.step + 1;  
+    } else {
+      console.log('game hasnt started')
+      if (this.props.power) {
+        count = this.props.step
+      } else {
+        count = null
+      }
+    }
+    
     return (
       <div className="App">
       	<div className="game-container">
@@ -226,9 +291,9 @@ class App extends Component {
 	        <Control 
             onOff={this.onOff} 
             startGame={this.initializeGame}
-            strict={this.state.strict}
+            strict={this.props.strict}
             toggleStrict={this.toggleStrict} 
-            count={this.state.count}
+            count={count}
             failed={this.state.failed}
             win={this.state.win}
           />
@@ -239,4 +304,20 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    step: state.step,
+    sequence: state.sequence,
+    power: state.status.power,
+    gameStarted: state.status.gameStarted,
+    playerTurn: state.status.playerTurn,
+    strict: state.status.strict,
+    gameWin: state.status.gameWin
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

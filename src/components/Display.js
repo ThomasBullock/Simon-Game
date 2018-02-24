@@ -21,7 +21,7 @@ class Display extends React.Component {
 	checkDisplay() {
 		if(this.props.failed) {
 			return "!!";
-		} else if (this.props.count === null) {
+		} else if (!this.props.count && typeof this.props.count === 'object') {
 			return
 		} else {
 			return this.padDigit(this.props.count);
